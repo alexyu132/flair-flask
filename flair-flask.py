@@ -57,6 +57,21 @@ def sendId(id):
         print("Controller not found :(")
         io.emit('notfound')
 
+@io.on('data')
+def sendData(data):
+
+    id=-1;
+
+    for tuple in controllers:
+        if(request.sid == tuple[0]):
+            id=tuple[1]
+            break
+
+    if(id != -1):
+        io.emit('data', data, broadcast=True);
+
+
+
 @io.on('disconnect')
 def disconnect():
     print("%s disconnected" % (request.sid))

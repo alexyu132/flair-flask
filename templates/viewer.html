@@ -6,13 +6,19 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
-
+      var connected = false;
+      var id;
       function init(){
+        if(connected) return;
+
         var socket = io.connect();
 
         socket.on('connect', function(){
+          if(connected) return;
+
           console.log("connected");
-          socket.emit('initDisplay', parseInt(document.getElementById("id").value));
+          id = parseInt(document.getElementById("id").value)
+          socket.emit('initDisplay', id);
         });
 
         socket.on('notfound', function () {
@@ -20,7 +26,12 @@
         });
         socket.on('success', function () {
             $('h1').text("Connection successful");
+            connected=true;
         });
+        socket.on('data', function (data) {
+          console.log(data);
+        });
+
 
       }
     </script>
