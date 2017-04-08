@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_socketio import SocketIO
 from random import randint
 from flask.ext.mobility import Mobility
+import os
 
 app = Flask(__name__)
 Mobility(app)
