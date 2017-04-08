@@ -68,4 +68,4 @@ def disconnect():
 
 
 if __name__ == '__main__':
-    io.run(app)
+    io.run(app,host= '0.0.0.0')
