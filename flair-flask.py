@@ -1,15 +1,20 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_socketio import SocketIO
 from random import randint
+from flask.ext.mobility import Mobility
 
 app = Flask(__name__)
+Mobility(app)
 io = SocketIO(app)
 
 clients = []
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    if request.MOBILE:
+        return redirect("/controller", code=302)
+
+    return redirect("/viewer", code=302)
 
 @app.route('/viewer')
 def display_viewer():
