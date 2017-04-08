@@ -1,0 +1,22 @@
+body {
+    font-family: raleway, sans-serif;
+}
+
+#idholder{
+    position: relative;
+    letter-spacing: 40px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 180px;
+    color: #fdae3f;
+    box-shadow: 0 0 20px #888888;
+}
+#idcontainer{
+    position: absolute;
+left: 50%;
+top: 50%;
+-webkit-transform: translate(-50%, -50%);
+-ms-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+
+}

@@ -16,13 +16,16 @@ def hello_world():
 
     return redirect("/viewer", code=302)
 
+
 @app.route('/viewer')
 def display_viewer():
     return render_template('viewer.html')
 
+
 @app.route('/controller')
 def display_controller():
     return render_template('controller.html');
+
 
 @io.on('connect')
 def connected():
@@ -30,11 +33,13 @@ def connected():
     #print("%s connected" % (request.namespace.socket.sessid))
     #clients.append(request.namespace)
 
+
 @io.on('requestId')
 def sendId():
     id = randint(0,10000);
     print("Sending id: " + str(id));
     io.emit('id', id);
+
 
 @io.on('disconnect')
 def disconnect():
