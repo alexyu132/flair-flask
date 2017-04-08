@@ -7,23 +7,27 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-      function init(){}
+      function init(){
         var socket = io.connect();
 
         socket.on('connect', function(){
           console.log("connected");
-          socket.emit('initDisplay', Integer.parseInt(document.getElementById("id").value));
+          socket.emit('initDisplay', parseInt(document.getElementById("id").value));
         });
 
-        socket.on('id', function (data) {
-            $('h1').text(data)
+        socket.on('notfound', function () {
+            $('h1').text("Controller not found");
         });
+        socket.on('success', function () {
+            $('h1').text("Connection successful");
         });
+
       }
     </script>
 </head>
 <body>
 Id: <input id="id" type="text"></input>
+<h1></h1>
 
 <button onclick="init()">Submit</button>
 </body>
