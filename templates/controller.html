@@ -20,8 +20,27 @@
         });
 
             socket.on('id', function (data) {
-                console.log("Received ID "+data)
-                $('#idnumber').text(data)
+              function motion(event) {
+                  console.log(performance.now() + ", " +
+                      event.accelerationIncludingGravity.x + ", " +
+                      event.accelerationIncludingGravity.y + ", " +
+                      event.accelerationIncludingGravity.z
+                  );
+
+                  socket.emit('data', {id:data, t:performance.now(), x:event.acceleration.x, y:event.acceleration.y, z:event.acceleration.z});
+
+              }
+
+              if (window.DeviceMotionEvent) {
+                  window.addEventListener("devicemotion", motion, false);
+              } else {
+                  console.log("DeviceMotionEvent is not supported");
+              }
+
+
+
+                console.log("Received ID "+data);
+                $('#idnumber').text(data);
             });
         }
     </script>

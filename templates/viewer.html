@@ -16,24 +16,37 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-        function init() {
-            var socket = io.connect();
+      var connected = false;
+      var id;
+       function init(){
+        if(connected) return;
 
-            socket.on('connect', function () {
-                console.log("connected");
-                socket.emit('initDisplay', parseInt(document.getElementById("id").value));
-            });
+        var socket = io.connect();
 
-            socket.on('notfound', function () {
-                $('#messagedisplay').text("Controller not found");
-            });
-            socket.on('success', function () {
-                $('#messagedisplay').text("Connection successful");
-            });
+        socket.on('connect', function(){
+          if(connected) return;
 
-        }
+          console.log("connected");
+          id = parseInt(document.getElementById("id").value)
+          socket.emit('initDisplay', id);
+        });
+
+        socket.on('notfound', function () {
+            $('#messagedisplay').text("Controller not found");
+        });
+        socket.on('success', function () {
+            $('#messagedisplay').text("Connection successful");
+            connected=true;
+        });
+        socket.on('data', function (data) {
+          console.log(data);
+        });
+
+
+      }
     </script>
     <link href='/static/style.css' rel='stylesheet'>
+
 </head>
 <body>
 <div class="container" id="codeentry">
@@ -49,7 +62,5 @@
 
     </form>
 </div>
-
-
 </body>
 </html>
