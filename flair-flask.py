@@ -52,6 +52,10 @@ def sendId(id):
     if(exists):
         displays.append((request.sid, id))
         print("Initializing display with id" + str(id))
+        io.emit('success')
+    else:
+        print("Controller not found :(")
+        io.emit('notfound')
 
 @io.on('disconnect')
 def disconnect():
