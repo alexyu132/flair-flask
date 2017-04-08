@@ -13,10 +13,11 @@
         function createSocketConnection() {
             var socket = io.connect();
 
-            socket.on('connect', function () {
-                console.log("connected");
-                socket.emit('requestId');
-            });
+
+        socket.on('connect', function(){
+          console.log("connected");
+          socket.emit('requestIdController');
+        });
 
             socket.on('id', function (data) {
                 console.log("Received ID "+data)

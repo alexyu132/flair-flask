@@ -7,7 +7,8 @@ app = Flask(__name__)
 Mobility(app)
 io = SocketIO(app)
 
-clients = []
+controllers = []
+displays = []
 
 @app.route('/')
 def hello_world():
@@ -29,26 +30,42 @@ def display_controller():
 
 @io.on('connect')
 def connected():
-    print("Someone has connected")
-    #print("%s connected" % (request.namespace.socket.sessid))
-    #clients.append(request.namespace)
+    print("%s connected" % (request.sid))
 
 
-@io.on('requestId')
+
+@io.on('requestIdController')
 def sendId():
     id = randint(0,10000);
     print("Sending id: " + str(id));
+    controllers.append((request.sid, id));
     io.emit('id', id);
 
+@io.on('initDisplay')
+def sendId(id):
+    exists=False
+
+    for tuple in controllers:
+        if(id == tuple[1]):
+            exists=True
+
+    if(exists):
+        displays.append((request.sid, id))
+        print("Initializing display with id" + str(id))
 
 @io.on('disconnect')
 def disconnect():
-    print("Someone has disconnected")
-    #print("%s disconnected" % (request.namespace.socket.sessid))
-    #clients.remove(request.namespace)
+    print("%s disconnected" % (request.sid))
+
+    for tuple in controllers:
+        if(request.sid == tuple[0]):
+            controllers.remove(tuple)
+
+    for tuple in displays:
+        if(request.sid == tuple[0]):
+            controllers.remove(tuple)
+
 
 
 if __name__ == '__main__':
     io.run(app)
-#if __name__ == '__main__':
-#    app.run()
