@@ -13,19 +13,22 @@ def hello_world():
 def display_viewer():
     return render_template('viewer.html')
 
+@app.route('/controller')
+def display_controller():
+    return render_template('controller.html');
 
-@io.on('connected')
+@io.on('connect')
 def connected():
     print("Someone has connected")
-    print("%s connected" % (request.namespace.socket.sessid))
-    clients.append(request.namespace)
+    #print("%s connected" % (request.namespace.socket.sessid))
+    #clients.append(request.namespace)
 
 
 @io.on('disconnect')
 def disconnect():
     print("Someone has disconnected")
-    print("%s disconnected" % (request.namespace.socket.sessid))
-    clients.remove(request.namespace)
+    #print("%s disconnected" % (request.namespace.socket.sessid))
+    #clients.remove(request.namespace)
 
 
 if __name__ == '__main__':
