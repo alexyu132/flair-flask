@@ -1,12 +1,34 @@
-from flask import Flask
-
+from flask import Flask, render_template, request
+from flask_socketio import SocketIO
 app = Flask(__name__)
+io = SocketIO(app)
 
+clients = []
 
 @app.route('/')
 def hello_world():
     return 'Hello World!'
 
+@app.route('/viewer')
+def display_viewer():
+    return render_template('viewer.html')
+
+
+@io.on('connected')
+def connected():
+    print("Someone has connected")
+    print("%s connected" % (request.namespace.socket.sessid))
+    clients.append(request.namespace)
+
+
+@io.on('disconnect')
+def disconnect():
+    print("Someone has disconnected")
+    print("%s disconnected" % (request.namespace.socket.sessid))
+    clients.remove(request.namespace)
+
 
 if __name__ == '__main__':
-    app.run()
+    io.run(app)
+#if __name__ == '__main__':
+#    app.run()
