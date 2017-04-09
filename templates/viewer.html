@@ -42,7 +42,10 @@
                 connected = true;
                 document.getElementById("codeentry").style.visibility = "hidden";
                 socket.on('data', function (data) {
-                    addPoint(data.x, data.y, data.z);
+                    if(data.press){
+                      addPoint(data.x, data.y, data.z);
+                    }
+                    sphere.position.set(data.x,data.y,data.z);
                 });
 
                 var scene, camera, renderer, controls;
@@ -55,14 +58,14 @@
                     materials = [],
                     mouseX = 0,
                     mouseY = 0,
-                    windowHalfX, windowHalfY, cameraZ,
+        Points        windowHalfX, windowHalfY, cameraZ,
                     fogHex, fogDensity, parameters = {},
                     parameterCount, particles;
 
                 initRender();
                 animate();
 
-                function addPoint(x, y, z) {
+                function Pointsnt(x, y, z) {
                     var vertex = new THREE.Vector3();
 
                   //vertex.z = -y * 1200;
@@ -128,6 +131,11 @@
                     var skyMaterial = new THREE.MeshFaceMaterial(materialArray);
                     var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
                     scene.add(skyBox);
+
+                    var geometry = new THREE.SphereGeometry( 5, 32, 32 );
+                    var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+                    var sphere = new THREE.Mesh( geometry, material );
+                    scene.add( sphere );
 
                     container = document.createElement('div');
                     document.body.appendChild(container);

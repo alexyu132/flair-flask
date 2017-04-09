@@ -85,13 +85,14 @@
                             z = r;
 
 
-                            if (active && press) {
+                            if (active) {
                                 socket.emit('data', {
                                     id: data,
                                     t: performance.now(),
                                     y: x/180,
                                     z: y/180,
-                                    x: z
+                                    x: z*0.5
+                                    press: press
                                 });
                             }
                         }, true);
