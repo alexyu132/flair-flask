@@ -80,15 +80,15 @@
                             } else {
                               y = event.alpha;
                             }
-                            z = event.beta * 180;
+                            z = r;
 
 
                             if (active && press) {
                                 socket.emit('data', {
                                     id: data,
                                     t: performance.now(),
-                                    x: x,
-                                    y: y,
+                                    x: x/180,
+                                    y: y/180,
                                     z: z
                                 });
                             }
