@@ -37,7 +37,7 @@
                 connected = true;
                 document.getElementById("codeentry").style.visibility = "hidden";
                 socket.on('data', function(data) {
-                  addPoint(x,y,z);
+                  addPoint(data.x,data.y,data.z);
                 });
 
                 var scene, camera, renderer;
