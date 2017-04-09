@@ -35,7 +35,7 @@
             socket.on('success', function() {
                 $('#messagedisplay').text("Connection successful");
                 connected = true;
-                document.getElementById("container").style.visibility = "hidden";
+                document.getElementById("codeentry").style.visibility = "hidden";
                 socket.on('data', function(data) {
                     document.getElementById("alpha").innerHTML = data.x;
                     document.getElementById("beta").innerHTML = data.y;
