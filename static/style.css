@@ -53,6 +53,6 @@ transform: translate(-50%, -50%);
    user-select: none;
 }
 
-#instructions{
-    font-size: 100px;
+#instructiontext{
+    font-size: 300px;
 }
