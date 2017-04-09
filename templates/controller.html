@@ -13,7 +13,7 @@
     <script type="text/javascript" charset="utf-8">
         function createSocketConnection() {
             var socket = io.connect();
-            var id;
+            var id, active=false;
 
             socket.on('connect', function() {
                 console.log("connected");
@@ -28,22 +28,45 @@
 
             socket.on('startController', function(data) {
                 if (id == data) {
-                    function motion(event) {
-                        socket.emit('data', {
-                            id: data,
-                            t: performance.now(),
-                            x: event.acceleration.x,
-                            y: event.acceleration.y,
-                            z: event.acceleration.z
-                        });
-                    }
-                    if (window.DeviceMotionEvent) {
-                        window.addEventListener("devicemotion", motion, false);
+                  active=true;
+
+                    if (window.DeviceOrientationEvent) {
+                        window.addEventListener("deviceorientation", function() {
+                            var r = 1;
+
+                            var x, y, z;
+                            var a_nought = 0,
+                                b_nought = 0,
+                                c_nought = 0;
+
+                            var theta = event.alpha - a_nought;
+                            var phi = 90 - event.beta;
+
+                            x = r * Math.cos(Math.PI * theta / 180) * Math.sin(Math.PI * phi / 180);
+                            y = r * Math.sin(Math.PI * theta / 180) * Math.sin(Math.PI * phi / 180);
+                            z = r * Math.cos(Math.PI * phi / 180);
+
+                            if (active) {
+                                socket.emit('data', {
+                                    id: data,
+                                    t: performance.now(),
+                                    x: x,
+                                    y: y,
+                                    z: z
+                                });
+                            }
+                        }, true);
+
                     } else {
-                        console.log("DeviceMotionEvent is not supported");
+                        console.log("DeviceOrientation is not supported");
                     }
                 }
             });
+
+            socket.on('stopController', function() {
+              active=false;
+            });
+
         }
     </script>
     <link href='/static/style.css' rel='stylesheet'>

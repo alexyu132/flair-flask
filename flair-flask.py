@@ -44,20 +44,17 @@ def sendId():
 
 @io.on('initDisplay')
 def sendId(id):
-    exists=False
 
     for tuple in controllers:
         if(id == tuple[1]):
-            exists=True
+            displays.append((request.sid, id))
+            print("Initializing display with id" + str(id))
+            io.emit('success')
+            io.emit('startController', id, room=tuple[0]);
+            return
 
-    if(exists):
-        displays.append((request.sid, id))
-        print("Initializing display with id" + str(id))
-        io.emit('success')
-        io.emit('startController', id, broadcast=True);
-    else:
-        print("Controller not found :(")
-        io.emit('notfound')
+    print("Controller not found :(")
+    io.emit('notfound')
 
 @io.on('data')
 def sendData(data):
@@ -74,6 +71,7 @@ def sendData(data):
             if(id == tuple[1]):
                 print(tuple[0])
                 io.emit('data',data,room=tuple[0]);
+                break
 
 @io.on('disconnect')
 def disconnect():
@@ -82,10 +80,16 @@ def disconnect():
     for tuple in controllers:
         if(request.sid == tuple[0]):
             controllers.remove(tuple)
+            break
 
     for tuple in displays:
         if(request.sid == tuple[0]):
+            for tuple2 in controllers:
+                if(tuple[1]==tuple2[1]):
+                    io.emit('stopController', room=tuple2[0])
+                    break
             controllers.remove(tuple)
+            break
 
 
 
