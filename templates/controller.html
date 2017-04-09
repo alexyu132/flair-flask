@@ -76,22 +76,22 @@
                           //  z = r * Math.cos(Math.PI * phi / 180);
 
                             if(event.alpha>180){
-                              z = event.alpha % 180 - 180;
+                              x = event.alpha % 180 - 180;
                             } else {
-                              z = event.alpha;
+                              x = event.alpha;
                             }
 
-                            x=event.beta;
-                            y = r;
+                            y=event.beta;
+                            z = r;
 
 
                             if (active && press) {
                                 socket.emit('data', {
                                     id: data,
                                     t: performance.now(),
-                                    x: x/180,
-                                    y: y/180,
-                                    z: z
+                                    z: x/180,
+                                    x: y/180,
+                                    y: z
                                 });
                             }
                         }, true);
