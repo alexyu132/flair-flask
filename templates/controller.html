@@ -39,7 +39,7 @@
             socket.on('startController', function(data) {
                 if (id == data && !active) {
                   active=true;
-                  document.getElementById("idcontainer").style.visibility="hidden";
+                  document.getElementById("idholder").style.visibility="hidden";
                   document.getElementById("instructions").style.visibility="inline";
 
                     if (window.DeviceOrientationEvent) {
