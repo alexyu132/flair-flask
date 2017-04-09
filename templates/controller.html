@@ -11,19 +11,36 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
-        var press=false;
+        var press = false,
+            mouseX, mouseY;
 
 
-        document.addEventListener('touchstart',function(){
-          press=true;
-        },false);
-        document.addEventListener('touchend',function(){
-          press=false;
-        },false);
+        document.addEventListener('touchstart', onDocumentTouchStart, false);
+        document.addEventListener('touchend', onDocumentTouchMove, false);
+
+        function onDocumentTouchStart(e) {
+            press = true;
+            if (e.touches.length === 1) {
+
+                e.preventDefault();
+                mouseX = e.touches[0].pageX;
+                mouseY = e.touches[0].pageY;
+            }
+        }
+
+        function onDocumentTouchMove(e) {
+            press = false;
+            if (e.touches.length === 1) {
+
+                e.preventDefault();
+                mouseX = e.touches[0].pageX;
+                mouseY = e.touches[0].pageY;
+            }
+        }
 
         function createSocketConnection() {
             var socket = io.connect();
-            var id, active=false;
+            var id, active = false;
 
             socket.on('connect', function() {
                 console.log("connected");
@@ -38,13 +55,13 @@
 
             socket.on('startController', function(data) {
                 if (id == data && !active) {
-                  active=true;
-                  document.getElementById("idholder").style.visibility="hidden";
-                  document.getElementById("instructions").style.visibility="visible";
+                    active = true;
+                    document.getElementById("idholder").style.visibility = "hidden";
+                    document.getElementById("instructions").style.visibility = "visible";
 
                     if (window.DeviceOrientationEvent) {
                         window.addEventListener("deviceorientation", function() {
-                            var r = 1;
+                            var r = mouseY/window.innerHeight+0.5;
 
                             var x, y, z;
                             var a_nought = 0,
@@ -76,7 +93,7 @@
             });
 
             socket.on('stopController', function() {
-              active=false;
+                active = false;
             });
 
         }
@@ -91,8 +108,7 @@
         </div>
         <div id="instructions" class="unselectable" style="visibility:hidden">
             <p>
-              Touch the screen to begin drawing!
-              Tilt the phone to move the brush.
+                Touch the screen to begin drawing! Tilt the phone to move the brush.
             </p>
         </div>
     </div>
