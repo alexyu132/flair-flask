@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <title>Flair Viewer</title>
     <link href='//fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
-    <script src="static/OrbitControls.js"></script>
+
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script src="static/three.min.js"></script>
+    <script src="static/OrbitControls.js"></script>
     <script type="text/javascript" charset="utf-8">
         var connected = false;
         var id;
@@ -53,7 +54,6 @@
                     windowHalfX, windowHalfY, cameraZ,
                     fogHex, fogDensity, parameters = {},
                     parameterCount, particles;
-                controls = new THREE.OrbitControls( camera, renderer.domElement );
                 initRender();
                 animate();
 
@@ -130,6 +130,7 @@
                     renderer = new THREE.WebGLRenderer();
                     renderer.setPixelRatio(window.devicePixelRatio);
                     renderer.setSize(WIDTH, HEIGHT);
+                    controls = new THREE.OrbitControls( camera, renderer.domElement );
 
                     container.appendChild(renderer.domElement);
 
