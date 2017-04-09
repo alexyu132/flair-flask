@@ -14,16 +14,10 @@
         var press = false,
             mouseX, mouseY=window.innerHeight/2;
 
-
-        document.addEventListener('touchstart', onDocumentTouchStart, false);
-        document.addEventListener('touchmove', onDocumentTouchMove, false);
-        document.addEventListener('touchend', function(){press=false;}, false);
-
         function onDocumentTouchStart(e) {
             press = true;
             if (e.touches.length === 1) {
 
-                e.preventDefault();
                 mouseX = e.touches[0].pageX;
                 mouseY = e.touches[0].pageY;
             }
@@ -32,7 +26,6 @@
         function onDocumentTouchMove(e) {
             if (e.touches.length === 1) {
 
-                e.preventDefault();
                 mouseX = e.touches[0].pageX;
                 mouseY = e.touches[0].pageY;
             }
@@ -55,14 +48,17 @@
 
             socket.on('startController', function(data) {
                 if (id == data && !active) {
+
+                  document.addEventListener('touchstart', onDocumentTouchStart, false);
+                  document.addEventListener('touchmove', onDocumentTouchMove, false);
+                  document.addEventListener('touchend', function(){press=false;}, false);
                     active = true;
-                    document.getElementById("idholder").style.visibility = "hidden";
-                    document.getElementById("instructions").style.visibility = "visible";
+                    document.getElementById("idholder").style.display = "none";
+                    document.getElementById("instructions").style.display = "inline";
 
                     if (window.DeviceOrientationEvent) {
                         window.addEventListener("deviceorientation", function() {
-                            var r = mouseY/window.innerHeight+0.5;
-                            console.log(mouseY + " " + window.innerHeight);
+                            var r = 1.5-mouseY/window.innerHeight;
                             var x, y, z;
                             var a_nought = 0,
                                 b_nought = 0,
@@ -106,7 +102,7 @@
         <div id="idholder">
             <span id="idnumber"></span>
         </div>
-        <div id="instructions" class="unselectable" style="visibility:hidden">
+        <div id="instructions" class="unselectable" style="display:none">
             <div class="row" id="instructiontext">
 
             <br>
