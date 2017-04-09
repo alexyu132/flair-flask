@@ -65,8 +65,8 @@
                 function addPoint(x, y, z) {
                     var vertex = new THREE.Vector3();
 
-                    vertex.z= -y * 1200;
-                    vertex.x= x * 1200;
+                    vertex.z= -y * 1200 + 500;
+                    vertex.x= x * 1200 + 500;
                     vertex.y= z * 1200+400;
 
                     geometry = new THREE.Geometry();
@@ -92,7 +92,7 @@
 
                     camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
 
-                    camera.position.set(200, 300,200);
+                    camera.position.set(200, 300,0);
 
                     scene = new THREE.Scene();
                     scene.fog = new THREE.FogExp2(fogHex, fogDensity);
