@@ -43,7 +43,9 @@
                     if (data.press) {
                         addPoint(data.x, data.y, data.z);
                     }
-                    sphere.position.set(data.x, data.y, data.z);
+                    sphere.position.x=data.x;
+                    sphere.position.y=data.y;
+                    sphere.position.z=data.z;
                 });
 
                 var scene, camera, renderer, controls;
