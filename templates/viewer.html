@@ -192,8 +192,10 @@
                         color = parameters[i][0];
                         size = parameters[i][1];
 
-                        materials[i] = new THREE.PointsMaterial({
-                            size: size * 3.5
+                        materials[i] = new THREE.LineBasicMaterial({
+                            linewidth: size * 3.5
+                            linecap: 'round'
+                            linejoin: 'round'
                         });
 
                     }
