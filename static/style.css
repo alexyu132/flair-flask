@@ -47,3 +47,7 @@ transform: translate(-50%, -50%);
    -ms-user-select: none;
    user-select: none;
 }
+
+#instructions{
+    font-size: 100px;
+}
