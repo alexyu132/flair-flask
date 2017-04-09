@@ -11,8 +11,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
+        var press=false;
 
-        
+
+        document.addEventListener('touchstart',function(){press=true;},false);
+        document.addEventListener('touchend',function(){press=false;},false);
 
         function createSocketConnection() {
             var socket = io.connect();
@@ -49,7 +52,7 @@
                             y = r * Math.sin(Math.PI * theta / 180) * Math.sin(Math.PI * phi / 180);
                             z = r * Math.cos(Math.PI * phi / 180);
 
-                            if (active) {
+                            if (active && press) {
                                 socket.emit('data', {
                                     id: data,
                                     t: performance.now(),

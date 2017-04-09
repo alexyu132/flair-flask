@@ -12,7 +12,6 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script src="static/three.min.js"></script>
-    <script src="static/OrbitControls.js"></script>
     <script type="text/javascript" charset="utf-8">
         var connected = false;
         var id;
@@ -41,7 +40,7 @@
                   addPoint(data.x,data.y,data.z);
                 });
 
-                var scene, camera, renderer, controls;
+                var scene, camera, renderer;
 
                 var container, HEIGHT,
                     WIDTH, fieldOfView, aspectRatio,
@@ -54,10 +53,11 @@
                     windowHalfX, windowHalfY, cameraZ,
                     fogHex, fogDensity, parameters = {},
                     parameterCount, particles;
+
                 initRender();
                 animate();
 
-                function addPoint(y,z,x) {
+                function addPoint(x,y,z) {
                     var vertex = new THREE.Vector3();
                     vertex.x= y * 1200;
                     vertex.y= -x * 1200;
@@ -85,7 +85,7 @@
                     fogDensity = 0.0007;
 
                     camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
-                    camera.position.set(0, 0,-300);
+                    camera.position.set(0, - 300,0);
 
                     scene = new THREE.Scene();
                     scene.fog = new THREE.FogExp2(fogHex, fogDensity);
@@ -130,7 +130,6 @@
                     renderer = new THREE.WebGLRenderer();
                     renderer.setPixelRatio(window.devicePixelRatio);
                     renderer.setSize(WIDTH, HEIGHT);
-                    controls = new THREE.OrbitControls( camera, renderer.domElement );
 
                     container.appendChild(renderer.domElement);
 
@@ -138,8 +137,6 @@
                     document.addEventListener('mousemove', onDocumentMouseMove, false);
                     document.addEventListener('touchstart', onDocumentTouchStart, false);
                     document.addEventListener('touchmove', onDocumentTouchMove, false);
-
-                    camera.lookAt(scene.position);
 
 
                 }
@@ -150,6 +147,9 @@
                 }
 
                 function render() {
+
+                  camera.lookAt(scene.position);
+
                     var time = Date.now() * 0.00005;
 
 
@@ -157,13 +157,11 @@
 
                         color = parameters[i][0];
 
-                        h = (360 * (color[0] + time) % 360) / 360;
+                        h = (360 * (color[0] + time) % 360) / 660;
                         materials[i].color.setHSL(h, color[1], color[2]);
                     }
 
                     renderer.render(scene, camera);
-                    controls.update();
-
                 }
 
                 function onDocumentMouseMove(e) {
