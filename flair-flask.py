@@ -69,7 +69,6 @@ def sendData(data):
     if(id != -1):
         for tuple in displays:
             if(id == tuple[1]):
-                print(tuple[0])
                 io.emit('data',data,room=tuple[0]);
                 break
 
