@@ -37,9 +37,14 @@
         socket.on('success', function () {
             $('#messagedisplay').text("Connection successful");
             connected=true;
+            document.getElementById("id").style.visibility="hidden";
+            document.getElementById("button").style.visibility="hidden";
+
         });
         socket.on('data', function (data) {
-          console.log(data);
+          document.getElementById("alpha").innerHTML = data.x;
+          document.getElementById("beta").innerHTML = data.y;
+          document.getElementById("gamma").innerHTML = data.z;
         });
 
 
@@ -60,7 +65,15 @@
     <button onclick="init()" style="width:100%;" class="btn btn-success">Start Drawing!</button>
 
 
+<<<<<<< Updated upstream
     </form>
 </div>
+=======
+<button id="button" onclick="init()">Submit</button>
+
+<p id="alpha"><p>
+<p id="beta"><p>
+<p id="gamma"><p>
+>>>>>>> Stashed changes
 </body>
 </html>
