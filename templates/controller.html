@@ -12,11 +12,12 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         var press = false,
-            mouseX, mouseY;
+            mouseX, mouseY=window.innerHeight/2;
 
 
         document.addEventListener('touchstart', onDocumentTouchStart, false);
-        document.addEventListener('touchend', onDocumentTouchMove, false);
+        document.addEventListener('touchmove', onDocumentTouchMove, false);
+        document.addEventListener('touchend', function(){press=false;}, false);
 
         function onDocumentTouchStart(e) {
             press = true;
@@ -29,7 +30,6 @@
         }
 
         function onDocumentTouchMove(e) {
-            press = false;
             if (e.touches.length === 1) {
 
                 e.preventDefault();
