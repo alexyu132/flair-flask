@@ -12,6 +12,7 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script src="static/three.min.js"></script>
+    <script src="static/OrbitControls.js"></script>
     <script type="text/javascript" charset="utf-8">
         var connected = false;
         var id;
@@ -40,7 +41,7 @@
                   addPoint(data.x,data.y,data.z);
                 });
 
-                var scene, camera, renderer;
+                var scene, camera, renderer, controls;
 
                 var container, HEIGHT,
                     WIDTH, fieldOfView, aspectRatio,
@@ -130,7 +131,7 @@
                     renderer = new THREE.WebGLRenderer();
                     renderer.setPixelRatio(window.devicePixelRatio);
                     renderer.setSize(WIDTH, HEIGHT);
-
+                    controls = new THREE.OrbitControls( camera, renderer.domElement );
                     container.appendChild(renderer.domElement);
 
                     window.addEventListener('resize', onWindowResize, false);
@@ -162,6 +163,7 @@
                     }
 
                     renderer.render(scene, camera);
+                    controls.update();
                 }
 
                 function onDocumentMouseMove(e) {
