@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Flair Controller</title>
@@ -12,46 +13,49 @@
     <script type="text/javascript" charset="utf-8">
         function createSocketConnection() {
             var socket = io.connect();
+            var id;
 
+            socket.on('connect', function() {
+                console.log("connected");
+                socket.emit('requestIdController');
+            });
 
-        socket.on('connect', function(){
-          console.log("connected");
-          socket.emit('requestIdController');
-        });
-
-            socket.on('id', function (data) {
-              function motion(event) {
-                  console.log(performance.now() + ", " +
-                      event.accelerationIncludingGravity.x + ", " +
-                      event.accelerationIncludingGravity.y + ", " +
-                      event.accelerationIncludingGravity.z
-                  );
-
-                  socket.emit('data', {id:data, t:performance.now(), x:event.acceleration.x, y:event.acceleration.y, z:event.acceleration.z});
-
-              }
-
-              if (window.DeviceMotionEvent) {
-                  window.addEventListener("devicemotion", motion, false);
-              } else {
-                  console.log("DeviceMotionEvent is not supported");
-              }
-
-
-
-                console.log("Received ID "+data);
+            socket.on('id', function(data) {
+                console.log("Received ID " + data);
+                id = data;
                 $('#idnumber').text(data);
+            });
+
+            socket.on('startController', function(data) {
+                if (id == data) {
+                    function motion(event) {
+                        socket.emit('data', {
+                            id: data,
+                            t: performance.now(),
+                            x: event.acceleration.x,
+                            y: event.acceleration.y,
+                            z: event.acceleration.z
+                        });
+                    }
+                    if (window.DeviceMotionEvent) {
+                        window.addEventListener("devicemotion", motion, false);
+                    } else {
+                        console.log("DeviceMotionEvent is not supported");
+                    }
+                }
             });
         }
     </script>
     <link href='/static/style.css' rel='stylesheet'>
 </head>
+
 <body onload="createSocketConnection()">
-<div class="container" id="idcontainer">
-<div id="idholder">
-    <span id="idnumber"></span>
-</div>
-</div>
-<h1></h1>
+    <div class="container" id="idcontainer">
+        <div id="idholder">
+            <span id="idnumber"></span>
+        </div>
+    </div>
+    <h1></h1>
 </body>
+
 </html>
