@@ -71,9 +71,17 @@
                             var theta = event.alpha - a_nought;
                             var phi = 90 - event.beta;
 
-                            x = r * Math.cos(Math.PI * theta / 180) * Math.sin(Math.PI * phi / 180);
-                            y = r * Math.sin(Math.PI * theta / 180) * Math.sin(Math.PI * phi / 180);
-                            z = r * Math.cos(Math.PI * phi / 180);
+                          //  x = r * Math.cos(Math.PI * theta / 180) * Math.sin(Math.PI * phi / 180);
+                          //  y = r * Math.sin(Math.PI * theta / 180) * Math.sin(Math.PI * phi / 180);
+                          //  z = r * Math.cos(Math.PI * phi / 180);
+
+                            if(event.alpha>180){
+                              x = event.alpha % 180 - 180;
+                            } else {
+                              y = event.alpha;
+                            }
+                            z = event.beta * 180;
+
 
                             if (active && press) {
                                 socket.emit('data', {
