@@ -33,8 +33,9 @@
             });
 
             socket.on('startController', function(data) {
-                if (id == data) {
+                if (id == data && !active) {
                   active=true;
+                  document.getElementById("idcontainer").style.visibility="hidden";
 
                     if (window.DeviceOrientationEvent) {
                         window.addEventListener("deviceorientation", function() {
