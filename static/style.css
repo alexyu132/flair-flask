@@ -35,7 +35,7 @@ transform: translate(-50%, -50%);
     font-size: 200px;
 }
 
-*.unselectable {
+.unselectable {
    -moz-user-select: -moz-none;
    -khtml-user-select: none;
    -webkit-user-select: none;
