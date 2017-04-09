@@ -14,16 +14,10 @@
         var press = false,
             mouseX, mouseY=window.innerHeight/2;
 
-
-        document.addEventListener('touchstart', onDocumentTouchStart, false);
-        document.addEventListener('touchmove', onDocumentTouchMove, false);
-        document.addEventListener('touchend', function(){press=false;}, false);
-
         function onDocumentTouchStart(e) {
             press = true;
             if (e.touches.length === 1) {
 
-                e.preventDefault();
                 mouseX = e.touches[0].pageX;
                 mouseY = e.touches[0].pageY;
             }
@@ -32,7 +26,6 @@
         function onDocumentTouchMove(e) {
             if (e.touches.length === 1) {
 
-                e.preventDefault();
                 mouseX = e.touches[0].pageX;
                 mouseY = e.touches[0].pageY;
             }
@@ -55,6 +48,10 @@
 
             socket.on('startController', function(data) {
                 if (id == data && !active) {
+
+                  document.addEventListener('touchstart', onDocumentTouchStart, false);
+                  document.addEventListener('touchmove', onDocumentTouchMove, false);
+                  document.addEventListener('touchend', function(){press=false;}, false);
                     active = true;
                     document.getElementById("idholder").style.visibility = "hidden";
                     document.getElementById("instructions").style.visibility = "visible";
