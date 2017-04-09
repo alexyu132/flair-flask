@@ -72,12 +72,14 @@
                 function addPoint(x, y, z) {
                     var vertex = new THREE.Vector3();
 
-                    if(!prevX) {
+                    /*if(!prevX) {
                       prevZ = -y * 3200;
                       prevX = x * 3200 - 1200;
                       prevY = z * 3200 + 100;
                       return;
-                    }
+                    }*/
+
+                    //Spherical mode
                     //vertex.z = -y * 1200;
                     //  vertex.x = x * 1200 - 300;
                     //  vertex.y = z * 1200 + 400;
@@ -86,6 +88,7 @@
                     vertex.x = x * 3200 - 1200;
                     vertex.y = z * 3200 + 100;
 
+                    /*
                     var vertex2 = new THREE.Vector3();
                     vertex2.z = prevZ;
                     vertex2.x = prevX;
@@ -94,11 +97,12 @@
                     prevX = vertex.x;
                     prevY = vertex.y;
                     prevZ = vertex.z;
+                    */
 
                     geometry = new THREE.Geometry();
                     geometry.vertices.push(vertex);
-                    geometry.vertices.push(vertex2);
-                    scene.add(new THREE.LineSegments(geometry, materials[0]));
+                    //geometry.vertices.push(vertex2);
+                    scene.add(new THREE.Points(geometry, materials[0]));
                 }
 
                 function initRender() {
@@ -192,10 +196,14 @@
                         color = parameters[i][0];
                         size = parameters[i][1];
 
-                        materials[i] = new THREE.LineBasicMaterial({
+                        /*materials[i] = new THREE.LineBasicMaterial({
                             linewidth: size * 12.5,
                             linecap: 'round',
                             linejoin: 'round'
+                        });*/
+
+                        materials[i] = new THREE.PointsMaterial({
+                            linewidth: size * 3.5
                         });
 
                     }
