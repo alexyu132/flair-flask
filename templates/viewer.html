@@ -65,7 +65,7 @@
 
                     geometry = new THREE.Geometry();
                     geometry.vertices.push(vertex);
-                    scene.add(new THREE.Points(vertex, materials[0]));
+                    scene.add(new THREE.Points(geometry, materials[0]));
                 }
 
                 function initRender() {
