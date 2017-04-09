@@ -138,6 +138,9 @@
                     document.addEventListener('touchstart', onDocumentTouchStart, false);
                     document.addEventListener('touchmove', onDocumentTouchMove, false);
 
+                    camera.lookAt(scene.position);
+
+
                 }
 
                 function animate() {
