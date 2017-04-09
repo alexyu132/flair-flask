@@ -53,8 +53,8 @@
                   document.addEventListener('touchmove', onDocumentTouchMove, false);
                   document.addEventListener('touchend', function(){press=false;}, false);
                     active = true;
-                    document.getElementById("idholder").style.visibility = "hidden";
-                    document.getElementById("instructions").style.visibility = "visible";
+                    document.getElementById("idholder").style.display = "none";
+                    document.getElementById("instructions").style.display = "inline";
 
                     if (window.DeviceOrientationEvent) {
                         window.addEventListener("deviceorientation", function() {
@@ -102,7 +102,7 @@
         <div id="idholder">
             <span id="idnumber"></span>
         </div>
-        <div id="instructions" class="unselectable" style="visibility:hidden">
+        <div id="instructions" class="unselectable" style="display:none">
             <div class="row" id="instructiontext">
 
             <br>
