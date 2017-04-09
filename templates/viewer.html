@@ -34,6 +34,8 @@
                 $('#messagedisplay').text("Controller not found");
             });
             socket.on('success', function() {
+                if(connected) return;
+
                 $('#messagedisplay').text("Connection successful");
                 connected = true;
                 document.getElementById("codeentry").style.visibility = "hidden";
@@ -43,10 +45,9 @@
                     if (data.press) {
                         addPoint(data.x, data.y, data.z);
                     }
-                    sphere.position.x=data.x;
-                    sphere.position.y=data.y;
-                    sphere.position.z=data.z;
-                    console.log(sphere.position);
+                    sphere.position.z = -data.y * 3200;
+                    sphere.position.x = data.x * 3200 - 1900;
+                    sphere.position.y = data.z * 3200 + 100;
                 });
 
                 var scene, camera, renderer, controls;
@@ -61,7 +62,7 @@
                     mouseY = 0,
                     windowHalfX, windowHalfY, cameraZ,
                     fogHex, fogDensity, parameters = {},
-                    parameterCount, particles;
+                    parameterCount;
 
                 initRender();
                 animate();
