@@ -101,7 +101,7 @@
 
                     camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
 
-                    camera.position.set(-300, 450, 0);
+                    camera.position.set(-450, 450, 0);
 
                     scene = new THREE.Scene();
                     scene.fog = new THREE.FogExp2(fogHex, fogDensity);
@@ -137,7 +137,7 @@
                     var skyBox = new THREE.Mesh(skyGeometry, skyMaterial);
                     scene.add(skyBox);
 
-                    var geom = new THREE.SphereGeometry(5, 32, 32);
+                    var geom = new THREE.SphereGeometry(10, 32, 32);
                     var mat = new THREE.MeshBasicMaterial({
                         color: 0xffff00
                     });
