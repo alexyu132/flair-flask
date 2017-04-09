@@ -42,8 +42,8 @@
                 socket.on('data', function(data) {
                     if (data.press) {
                         addPoint(data.x, data.y, data.z);
-                        sphere.position.set(data.x, data.y, data.z);
                     }
+                    sphere.position.set(data.x, data.y, data.z);
                 });
 
                 var scene, camera, renderer, controls;
