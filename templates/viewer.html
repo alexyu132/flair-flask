@@ -37,11 +37,13 @@
                 $('#messagedisplay').text("Connection successful");
                 connected = true;
                 document.getElementById("codeentry").style.visibility = "hidden";
+                var sphere;
+
                 socket.on('data', function(data) {
                     if (data.press) {
                         addPoint(data.x, data.y, data.z);
+                        sphere.position.set(data.x, data.y, data.z);
                     }
-                    sphere.position.set(data.x, data.y, data.z);
                 });
 
                 var scene, camera, renderer, controls;
@@ -135,7 +137,7 @@
                     var mat = new THREE.MeshBasicMaterial({
                         color: 0xffff00
                     });
-                    var sphere = new THREE.Mesh(geom, mat);
+                    sphere = new THREE.Mesh(geom, mat);
                     scene.add(sphere);
 
                     container = document.createElement('div');
