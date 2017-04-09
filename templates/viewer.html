@@ -67,9 +67,17 @@
                 initRender();
                 animate();
 
+                var prevX, prevY, prevZ;
+
                 function addPoint(x, y, z) {
                     var vertex = new THREE.Vector3();
 
+                    if(!prevX) {
+                      prevZ = -y * 3200;
+                      prevX = x * 3200 - 1200;
+                      prevY = z * 3200 + 100;
+                      return;
+                    }
                     //vertex.z = -y * 1200;
                     //  vertex.x = x * 1200 - 300;
                     //  vertex.y = z * 1200 + 400;
@@ -78,9 +86,19 @@
                     vertex.x = x * 3200 - 1200;
                     vertex.y = z * 3200 + 100;
 
+                    var vertex2 = new Three.Vector3();
+                    vertex2.z = prevZ;
+                    vertex2.x = prevX;
+                    vertex2.y = prevY;
+
+                    prevX = vertex.x;
+                    prevY = vertex.y;
+                    prevZ = vertex.z;
+
                     geometry = new THREE.Geometry();
                     geometry.vertices.push(vertex);
-                    scene.add(new THREE.Points(geometry, materials[0]));
+                    geometry.vertices.push(vertex2);
+                    scene.add(new THREE.LineSegments(geometry, materials[0]));
                 }
 
                 function initRender() {
