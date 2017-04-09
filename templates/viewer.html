@@ -65,9 +65,13 @@
                 function addPoint(x, y, z) {
                     var vertex = new THREE.Vector3();
 
-                    vertex.z = -y * 1200;
-                    vertex.x = x * 1200 - 300;
-                    vertex.y = z * 1200 + 400;
+                  //vertex.z = -y * 1200;
+                  //  vertex.x = x * 1200 - 300;
+                  //  vertex.y = z * 1200 + 400;
+
+                  vertex.z = -y * 3200;
+                    vertex.x = x * 3200;
+                    vertex.y = z * 3200 + 100;
 
                     geometry = new THREE.Geometry();
                     geometry.vertices.push(vertex);
