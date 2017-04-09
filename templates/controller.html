@@ -57,12 +57,12 @@
                     document.getElementById("instructions").style.display = "inline";
 
                     if (window.DeviceOrientationEvent) {
+                      var a_nought;
+                    
                         window.addEventListener("deviceorientation", function() {
                             var r = 1.1-1.5*mouseY/window.innerHeight;
                             var x, y, z;
-                            var a_nought;
-                                b_nought;
-                                c_nought;
+
 
                             if(!a_nought){
                               a_nought=event.alpha;
