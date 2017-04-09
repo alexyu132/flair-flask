@@ -14,8 +14,12 @@
         var press=false;
 
 
-        document.addEventListener('touchstart',function(){press=true;},false);
-        document.addEventListener('touchend',function(){press=false;},false);
+        document.addEventListener('touchstart',function(){
+          press=true;
+        },false);
+        document.addEventListener('touchend',function(){
+          press=false;
+        },false);
 
         function createSocketConnection() {
             var socket = io.connect();
@@ -36,6 +40,7 @@
                 if (id == data && !active) {
                   active=true;
                   document.getElementById("idcontainer").style.visibility="hidden";
+                  document.getElementById("instructions").style.visibility="inline";
 
                     if (window.DeviceOrientationEvent) {
                         window.addEventListener("deviceorientation", function() {
@@ -83,6 +88,12 @@
     <div class="container" id="idcontainer">
         <div id="idholder">
             <span id="idnumber"></span>
+        </div>
+        <div id="instructions" visibility="hidden">
+            <p>
+              Touch the screen to begin drawing!
+              Tilt the phone to move the brush.
+            </p>
         </div>
     </div>
     <h1></h1>

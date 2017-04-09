@@ -158,7 +158,7 @@
 
                         color = parameters[i][0];
 
-                        h = (360 * (color[0] + time) % 360) / 660;
+                        h = (360 * (color[0] + time) % 360) / 360;
                         materials[i].color.setHSL(h, color[1], color[2]);
                     }
 
@@ -169,28 +169,6 @@
                 function onDocumentMouseMove(e) {
                     mouseX = e.clientX - windowHalfX;
                     mouseY = e.clientY - windowHalfY;
-                }
-
-                /*	Mobile users?  I got your back homey	*/
-
-                function onDocumentTouchStart(e) {
-
-                    if (e.touches.length === 1) {
-
-                        e.preventDefault();
-                        mouseX = e.touches[0].pageX - windowHalfX;
-                        mouseY = e.touches[0].pageY - windowHalfY;
-                    }
-                }
-
-                function onDocumentTouchMove(e) {
-
-                    if (e.touches.length === 1) {
-
-                        e.preventDefault();
-                        mouseX = e.touches[0].pageX - windowHalfX;
-                        mouseY = e.touches[0].pageY - windowHalfY;
-                    }
                 }
 
                 function onWindowResize() {
