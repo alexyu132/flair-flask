@@ -1,2 +1,1 @@
-heroku ps:scale web=1
-web: python flair-flask.py
+web: gunicorn flair-flask:app --log-file=-
