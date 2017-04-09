@@ -37,9 +37,7 @@
                 connected = true;
                 document.getElementById("codeentry").style.visibility = "hidden";
                 socket.on('data', function(data) {
-                    document.getElementById("alpha").innerHTML = data.x;
-                    document.getElementById("beta").innerHTML = data.y;
-                    document.getElementById("gamma").innerHTML = data.z;
+                  addPoint(x,y,z);
                 });
 
                 var scene, camera, renderer;
@@ -234,13 +232,6 @@
         <button id="button" onclick="init()" style="width:100%;" class="btn btn-success">Start Drawing!</button>
 
     </div>
-
-    <p id="alpha">
-        <p>
-            <p id="beta">
-                <p>
-                    <p id="gamma">
-                        <p>
 </body>
 
 </html>
