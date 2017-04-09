@@ -76,13 +76,13 @@
                           //  z = r * Math.cos(Math.PI * phi / 180);
 
                             if(event.alpha>180){
-                              x = event.alpha % 180 - 180;
+                              z = event.alpha % 180 - 180;
                             } else {
-                              x = event.alpha;
+                              z = event.alpha;
                             }
 
-                            y=event.beta;
-                            z = r;
+                            x=event.beta;
+                            y = r;
 
 
                             if (active && press) {
