@@ -58,7 +58,7 @@
 
                     if (window.DeviceOrientationEvent) {
                         window.addEventListener("deviceorientation", function() {
-                            var r = 1.5-mouseY/window.innerHeight;
+                            var r = 1.1-1.5*mouseY/window.innerHeight;
                             var x, y, z;
                             var a_nought = 0,
                                 b_nought = 0,
