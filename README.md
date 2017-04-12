@@ -1,2 +1,2 @@
 # flair-flask
-Flask web server for Flair
+ A web-based, smartphone-controlled 3D drawing app. Made with Flask, Socket.IO, and Three.js.
