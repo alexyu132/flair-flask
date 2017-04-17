@@ -1,1 +1,1 @@
-web: gunicorn flair-flask:app --log-file=-
+web: python flair-flask.py
